@@ -23,11 +23,11 @@ export function Nav({ links, isCollapsed }) {
                   href={link.href}
                   className={cn(
                     buttonVariants({
-                      variant: isCurrentPage(link) ? 'default' : 'ghost',
+                      variant: 'ghost',
                       size: 'icon',
                     }),
                     'h-9 w-9',
-                    isCurrentPage(link) && 'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
+                    isCurrentPage(link) && 'bg-muted text-primary hover:text-primary'
                   )}
                 >
                   <link.icon className="h-4 w-4" />
@@ -40,15 +40,7 @@ export function Nav({ links, isCollapsed }) {
               </TooltipContent>
             </Tooltip>
           ) : (
-            <Link
-              key={index}
-              href={link.href}
-              className={cn(
-                buttonVariants({ variant: isCurrentPage(link) ? 'default' : 'ghost', size: 'sm' }),
-                isCurrentPage(link) && 'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
-                'justify-start'
-              )}
-            >
+            <Link key={index} href={link.href} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), isCurrentPage(link) && 'bg-muted text-primary hover:text-primary', 'justify-start')}>
               <link.icon className="mr-2 h-4 w-4" />
               {link.title}
               {link.label && <span className={cn('ml-auto', (pathname === '/' && link.href === '/') || (isCurrentPage(link) && 'text-background dark:text-white'))}>{link.label}</span>}
@@ -90,10 +82,7 @@ export function Collapse({ isCollapsed, panel }) {
             </TooltipContent>
           </Tooltip>
         ) : (
-          <button
-            onClick={collapseSidebar}
-            className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white', 'justify-start')}
-          >
+          <button onClick={collapseSidebar} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start')}>
             <SidebarCloseIcon className="mr-2 h-4 w-4" />
             Collapse
           </button>

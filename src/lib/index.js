@@ -107,20 +107,3 @@ export const copyToClipboard = text => {
     }
   });
 };
-
-export const resolveTheme = () => {
-  setTimeout(() => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    if (document.documentElement.classList.contains('light')) {
-      document.documentElement.classList.add('light');
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.remove('light');
-    }
-  }, 0);
-};

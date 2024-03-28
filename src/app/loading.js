@@ -2,8 +2,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const loading = () => {
   return (
-    <div className="md:px-10 px-5">
-      <div className="grid gap-4 md:grid-cols-3 mt-12">
+    <div className="md:px-6 px-4">
+      <div className="grid gap-4 md:grid-cols-3 mt-6">
         {Array.from({ length: 9 }).map((_, index) => (
           <Skeleton className="p-4 bg-muted" delay={index * 100} key={index}>
             <div className="space-y-2 mb-4">

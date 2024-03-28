@@ -13,7 +13,7 @@ export const Timeline = ({ timeline = [] }) => {
           <div
             className={cn(
               clsx(
-                'w-3 h-3 rounded-full bg-violet-50 dark:bg-violet-900 border-2 border-violet-100 transition-transform hover:scale-105',
+                'w-3 h-3 rounded-full bg-indigo-50 dark:bg-indigo-900 border-2 border-indigo-100 transition-transform hover:scale-105',
                 {
                   'border-primary': timeline.pending,
                 }
@@ -23,12 +23,12 @@ export const Timeline = ({ timeline = [] }) => {
         </HoverCardTrigger>
         {timeline.pending && (
           <HoverCardContent side="top" className="flex items-start gap-4">
-            <div className="p-1 rounded bg-violet-50 text-primary">
+            <div className="p-1 rounded bg-indigo-50 text-primary">
               <StopCircle className="w-4 h-4" />
             </div>
             <div className="space-y-1">
               <h1>Pending</h1>
-              <h2 className="font-medium bg-violet-50/50">{timeline.pending}</h2>
+              <h2 className="font-medium bg-indigo-50/50">{timeline.pending}</h2>
             </div>
           </HoverCardContent>
         )}
@@ -37,9 +37,9 @@ export const Timeline = ({ timeline = [] }) => {
       <div
         className={cn(
           clsx(
-            'h-1 w-3 bg-violet-50 dark:bg-violet-900',
+            'h-1 w-3 bg-indigo-50 dark:bg-indigo-900',
             { 'bg-primary': timeline['in-progress'] },
-            { 'bg-violet-100 dark:bg-violet-800': timeline.paid }
+            { 'bg-indigo-100 dark:bg-indigo-800': timeline.paid }
           )
         )}
       ></div>
@@ -49,7 +49,7 @@ export const Timeline = ({ timeline = [] }) => {
           <div
             className={cn(
               clsx(
-                'w-3 h-3 rounded-full bg-violet-50 dark:bg-violet-900 border-2 border-violet-100 dark:border-violet-800 transition-transform hover:scale-105',
+                'w-3 h-3 rounded-full bg-indigo-50 dark:bg-indigo-900 border-2 border-indigo-100 dark:border-indigo-800 transition-transform hover:scale-105',
                 {
                   'border-primary': timeline['in-progress'],
                 }
@@ -59,12 +59,12 @@ export const Timeline = ({ timeline = [] }) => {
         </HoverCardTrigger>
         {timeline['in-progress'] && (
           <HoverCardContent side="top" className="flex items-start gap-4">
-            <div className="p-1 rounded bg-violet-50 text-primary">
+            <div className="p-1 rounded bg-indigo-50 text-primary">
               <CircleDotDashed className="w-4 h-4" />
             </div>
             <div className="space-y-1">
               <h1>In Progress</h1>
-              <h2 className="font-medium bg-violet-50/50">{timeline['in-progress']}</h2>
+              <h2 className="font-medium bg-indigo-50/50">{timeline['in-progress']}</h2>
             </div>
           </HoverCardContent>
         )}
@@ -72,7 +72,7 @@ export const Timeline = ({ timeline = [] }) => {
 
       <div
         className={cn(
-          clsx('h-1 w-3 bg-violet-50 dark:bg-violet-900', { 'bg-primary': timeline.paid }, { 'bg-violet-100 dark:bg-violet-800': timeline.paid })
+          clsx('h-1 w-3 bg-indigo-50 dark:bg-indigo-900', { 'bg-primary': timeline.paid }, { 'bg-indigo-100 dark:bg-indigo-800': timeline.paid })
         )}
       ></div>
 
@@ -81,7 +81,7 @@ export const Timeline = ({ timeline = [] }) => {
           <div
             className={cn(
               clsx(
-                'w-3 h-3 rounded-full bg-violet-50 dark:bg-violet-900 border-2 border-violet-100 dark:border-violet-800 transition-transform hover:scale-105',
+                'w-3 h-3 rounded-full bg-indigo-50 dark:bg-indigo-900 border-2 border-indigo-100 dark:border-indigo-800 transition-transform hover:scale-105',
                 {
                   'border-primary': timeline.paid,
                 }
@@ -91,12 +91,12 @@ export const Timeline = ({ timeline = [] }) => {
         </HoverCardTrigger>
         {timeline.paid && (
           <HoverCardContent side="top" className="flex items-start gap-4">
-            <div className="p-1 rounded bg-violet-50 text-primary">
+            <div className="p-1 rounded bg-indigo-50 text-primary">
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div className="space-y-1">
               <h1>Paid</h1>
-              <h2 className="font-medium bg-violet-50/50">{timeline.paid}</h2>
+              <h2 className="font-medium bg-indigo-50/50">{timeline.paid}</h2>
             </div>
           </HoverCardContent>
         )}
