@@ -30,11 +30,11 @@ export const HeaderBreadcrumb = ({ setNavOpen }) => {
               </BreadcrumbSeparator>
               <BreadcrumbItem>
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="custom-flex custom-items-center custom-gap-1">
-                    <BreadcrumbEllipsis className="custom-h-4 custom-w-4" />
-                    <span className="custom-sr-only">Toggle menu</span>
+                  <DropdownMenuTrigger className="flex items-center gap-1">
+                    <BreadcrumbEllipsis className="h-4 w-4" />
+                    <span className="sr-only">Toggle menu</span>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
+                  <DropdownMenuContent align="center">
                     {dropdownItems.map((segment, index) => (
                       <DropdownMenuItem key={index}>
                         <BreadcrumbLink href={`/${segments.slice(0, index + 1).join('/')}`}>{segment}</BreadcrumbLink>

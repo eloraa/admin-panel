@@ -21,8 +21,8 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
     <>
       <Link key={index} href={link.href} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), isCurrentPage(link) && 'bg-muted text-primary hover:text-primary', 'justify-start')}>
         <link.icon className="mr-2 h-4 w-4" />
-        {link.title}
-        {link.label && <span className={cn('ml-auto', (pathname === '/' && link.href === '/') || (isCurrentPage(link) && 'text-background dark:text-white'))}>{link.label}</span>}
+        <span className="truncate min-w-0">{link.title}</span>
+        {link.label && <span className={cn('ml-auto', (pathname === '/' && link.href === '/') || (isCurrentPage(link) && 'text-background dark:text-white truncate min-w-0'))}>{link.label}</span>}
         {link.submenu && link.submenu.length && (
           <Button
             onClick={e => {
@@ -46,7 +46,11 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
             style={{ height: !show ? '0' : optionsRef.current?.scrollHeight ? optionsRef.current?.scrollHeight : 'auto' }}
           >
             {link.submenu?.map((submenu, index) => (
-              <Link key={index} href={submenu.href} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start')}>
+              <Link
+                key={index}
+                href={submenu.href}
+                className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage(submenu) && 'bg-muted text-primary hover:text-primary')}
+              >
                 {submenu.title}
               </Link>
             ))}
@@ -59,8 +63,7 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
 
 export function Nav({ links, isCollapsed }) {
   const pathname = usePathname();
-  const isCurrentPage = link =>
-    (pathname === '/' && link.href === '/') || (((pathname !== '/' && link.href !== '/') || (link.alias && link.alias !== '/')) && (pathname.includes(link.href) || pathname.includes(link.alias)));
+  const isCurrentPage = link => (link.alias && pathname.includes(link.alias)) || (pathname === '/' && link.href === '/') || (pathname !== '/' && link.href !== '/' && pathname.includes(link.href));
   return (
     <div data-collapsed={isCollapsed} className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
       <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
@@ -116,7 +119,7 @@ export function Nav({ links, isCollapsed }) {
                     <nav className="grid gap-1 overflow-hidden">
                       <Link
                         href={link.href}
-                        className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage({ ...link, alias: null }) && 'bg-muted text-primary hover:text-primary')}
+                        className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage({ ...link, alias: undefined }) && 'bg-muted text-primary hover:text-primary')}
                       >
                         <link.icon className="mr-2 h-4 w-4" />
                         {link.title}
@@ -125,7 +128,7 @@ export function Nav({ links, isCollapsed }) {
                         <Link
                           key={index}
                           href={submenu.href}
-                          className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage(submenu) && 'bg-muted text-primary hover:text-primary')}
+                          className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start text-sm', isCurrentPage(submenu) && 'bg-muted text-primary hover:text-primary')}
                         >
                           <CircleDashedIcon className="mr-2 h-4 w-4" />
                           {submenu.title}

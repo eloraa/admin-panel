@@ -25,6 +25,7 @@ export const ThemeToggler = () => {
             onChange={e => toggleTheme(e.target.value)}
             aria-invalid="false"
             value={theme}
+            id="theme-toggle"
             className="px-6 pl-2 border h-6 text-xs appearance-none bg-muted rounded"
             aria-label="Change color theme"
           >

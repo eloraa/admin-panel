@@ -55,9 +55,6 @@
   body {
     @apply h-full w-full overflow-hidden flex;
   }
-  body > * {
-    @apply w-full;
-  }
   * {
     @apply border-border;
   }

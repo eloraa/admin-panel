@@ -29,7 +29,7 @@ export function Search({ open, setOpen, links }) {
   }, [setOpen]);
 
   return (
-    <CommandDialog className="bg-background/80 backdrop-blur" open={open} onOpenChange={setOpen}>
+    <CommandDialog className="bg-background/90 backdrop-blur" open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Search" />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>

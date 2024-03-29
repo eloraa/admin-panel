@@ -24,6 +24,13 @@ import { ThemeToggler } from '../ui/theme-toggler';
 import { ThemeProvider } from '../providers/theme-provider';
 import { HeaderBreadcrumb } from './breadcrumb';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { SquareDashedMousePointerIcon } from 'lucide-react';
+import { CreditCardIcon } from 'lucide-react';
+import { SquareMousePointerIcon } from 'lucide-react';
+import { TicketIcon } from 'lucide-react';
+import { BriefcaseIcon } from 'lucide-react';
+import { GlobeIcon } from 'lucide-react';
+import { TruckIcon } from 'lucide-react';
 
 export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, defaultShowOptions = true, children }) => {
   const navCollapsedSize = 5;
@@ -63,7 +70,37 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
     {
       title: 'Clients',
       href: '/clients',
+      icon: BriefcaseIcon,
+    },
+    {
+      title: 'Leads',
+      href: '/leads',
+      icon: SquareMousePointerIcon,
+    },
+    {
+      title: 'Billing',
+      href: '/billing',
+      icon: CreditCardIcon,
+    },
+    {
+      title: 'Support Tickets',
+      href: '/support',
+      icon: TicketIcon,
+    },
+    {
+      title: 'Team Members',
+      href: '/team',
       icon: UsersIcon,
+    },
+    {
+      title: 'Domain Requests',
+      href: '/domains',
+      icon: GlobeIcon,
+    },
+    {
+      title: 'Courier Info',
+      href: '/courier',
+      icon: TruckIcon,
     },
   ];
 
@@ -78,7 +115,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
           if (state === 'drag') {
             setDragging(true);
           }
-          if (state !== 'drag' && dragging && panel && panelElement?.offsetWidth <= 130) {
+          if (state !== 'drag' && dragging && panel && panelElement?.offsetWidth <= 150) {
             increasing ? panel.resize(15) : panel.collapse();
             setDragging(false);
           }
@@ -114,7 +151,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
 
           sizeRef.current = currentSize;
         }}
-        className="h-full items-stretch"
+        className="h-full items-stretch w-full"
       >
         <ResizablePanel
           id="sidebar"
