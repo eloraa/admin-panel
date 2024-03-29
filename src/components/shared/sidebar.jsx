@@ -35,6 +35,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
   const [increasing, setIncreasing] = React.useState(false);
   const panelRef = React.useRef(null);
   const sizeRef = React.useRef(defaultLayout[0]);
+  const optionsRef = React.useRef(null);
 
   React.useEffect(() => {
     if (panelRef.current) {
@@ -46,6 +47,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
     {
       title: 'Dashboard',
       href: '/',
+      alias: '/dashboard',
       icon: LayoutDashboardIcon,
       submenu: [
         {
@@ -230,7 +232,11 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
 
           {!isCollapsed && (
             <div data-collapsed={showOptions} className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
-              <nav className="grid gap-1 px-2 overflow-hidden group-[[data-collapsed=true]]:h-0">
+              <nav
+                ref={optionsRef}
+                className="grid gap-1 px-2 overflow-hidden group-[[data-collapsed=true]]:h-0 transition-[height] duration-300 ease-in-out"
+                style={{ height: showOptions ? '0' : optionsRef.current?.scrollHeight ? optionsRef.current?.scrollHeight : 'auto' }}
+              >
                 <button onClick={() => setSearchOpen(true)} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start')}>
                   <SearchIcon className="mr-2 h-4 w-4" />
                   Search
