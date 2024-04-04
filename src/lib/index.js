@@ -1,3 +1,4 @@
+import { colord, getFormat } from 'colord';
 /**
  * Adds scroll to a child element.
  *
@@ -91,12 +92,26 @@ export const addScroll = childElement => {
 
   return isScrollable ? childElement.clientHeight : false;
 };
+
+/**
+ * Check if a string ends with a specific value.
+ *
+ * @param {string} string - The input string to check
+ * @param {string|string[]} value - The value or values to check against
+ * @return {boolean} Returns true if the string ends with the specified value, otherwise false
+ */
 export const stringEndWith = (string, value) => {
   if (typeof value === 'string') return string.endsWith(value);
   if (Array.isArray(value)) return value.some(v => string.endsWith(v));
   return false;
 };
 
+/**
+ * Copies the given text to the clipboard using the navigator.clipboard API.
+ *
+ * @param {string} text - The text to be copied to the clipboard.
+ * @return {Promise<boolean>} A Promise that resolves to true if the text was successfully copied, false otherwise.
+ */
 export const copyToClipboard = text => {
   return new Promise(async resolve => {
     try {
@@ -106,4 +121,33 @@ export const copyToClipboard = text => {
       resolve(false);
     }
   });
+};
+
+/**
+ * Check if the given link corresponds to the current page pathname.
+ *
+ * @param {object} link - The link object to check.
+ * @param {string} pathname - The current page's pathname.
+ * @return {boolean} Returns true if the link corresponds to the current page pathname, false otherwise.
+ */
+export const isCurrentPage = (link, pathname) =>
+  (link.alias && pathname.includes(link.alias)) || (pathname === '/' && link.href === '/') || (pathname !== '/' && link.href !== '/' && pathname.includes(link.href));
+
+/**
+ * Function that calculates the luminance of a color and returns true if it is light and false if it is dark.
+ *
+ * @param {string} color - the color to calculate the luminance for
+ * @return {boolean} true if the color is light, false if it is dark
+ */
+export const getShade = color => {
+  if (!getFormat(color)) return console.warn('Invalid color format');
+  let hex = color;
+  if (getFormat(color) !== 'hex') hex = colord(color).toHex();
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+  return luminance > 0.5 ? true : false;
 };

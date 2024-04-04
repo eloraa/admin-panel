@@ -119,7 +119,7 @@ const NotFound = () => {
       <div className="flex items-center py-6 mx-auto">
         <div>
           <p className="text-sm font-medium text-primary">404 error</p>
-          <h1 className="mt-4 text-neutral-900 dark:text-neutral-50">The page you&apos;re looking for doesn&apos;t exist</h1>
+          <h1 className="mt-4 text-neutral-900 dark:text-neutral-50 font-medium">The page you&apos;re looking for doesn&apos;t exist</h1>
           <p className="mt-1 text-neutral-400 text-sm">You may have mistyped the address or the page may have moved.</p>
 
           <div className="flex items-center justify-center mt-6 gap-x-3">

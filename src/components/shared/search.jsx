@@ -11,7 +11,7 @@ import { Sun } from 'lucide-react';
 import { Moon } from 'lucide-react';
 import { Laptop2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Kbd } from '../ui/kbd';
+import { ThemeProvider } from '../providers/theme-provider';
 
 export function Search({ open, setOpen, links }) {
   const router = useRouter();
@@ -36,7 +36,7 @@ export function Search({ open, setOpen, links }) {
         <CommandGroup heading="Pages"></CommandGroup>
         {links.map((item, index) => (
           <React.Fragment key={item.title + index}>
-            {item.submenu?.length && <CommandSeparator />}
+            {!!item.submenu?.length && <CommandSeparator />}
             <CommandItem
               value={item.title}
               onSelect={() => {
@@ -80,6 +80,7 @@ export function Search({ open, setOpen, links }) {
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
+
         <CommandGroup className="!pt-1 !px-0" heading="Theme">
           <CommandItem
             onSelect={() => {

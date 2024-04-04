@@ -12,6 +12,7 @@ import { getPanelElement } from 'react-resizable-panels';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { CircleDashedIcon } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
+import { isCurrentPage } from '@/lib';
 
 const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
   const [show, setShow] = React.useState(false);
@@ -19,10 +20,12 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
 
   return (
     <>
-      <Link key={index} href={link.href} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), isCurrentPage(link) && 'bg-muted text-primary hover:text-primary', 'justify-start')}>
+      <Link key={index} href={link.href} className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), isCurrentPage(link, pathname) && 'bg-muted text-primary hover:text-primary', 'justify-start')}>
         <link.icon className="mr-2 h-4 w-4" />
         <span className="truncate min-w-0">{link.title}</span>
-        {link.label && <span className={cn('ml-auto', (pathname === '/' && link.href === '/') || (isCurrentPage(link) && 'text-background dark:text-white truncate min-w-0'))}>{link.label}</span>}
+        {link.label && (
+          <span className={cn('ml-auto', (pathname === '/' && link.href === '/') || (isCurrentPage(link, pathname) && 'text-background dark:text-white truncate min-w-0'))}>{link.label}</span>
+        )}
         {link.submenu && link.submenu.length && (
           <Button
             onClick={e => {
@@ -32,14 +35,14 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
             }}
             variant="ghost"
             size="icon"
-            className="ml-auto h-6 w-6 hover:bg-[#ddd]"
+            className="ml-auto h-6 w-6 hover:bg-[#ddd] dark:hover:bg-[#333]"
           >
             <ChevronRight className={cn('h-4 w-4 transition-transform', show && 'rotate-90')} />
           </Button>
         )}
       </Link>
       {!isCollapsed && (
-        <div data-collapsed={show} className="group flex flex-col gap-4 py-0 data-[collapsed=true]:py-2 transition-all duration-300 ease-in-out ml-5 border-l">
+        <div data-collapsed={show} className="group flex flex-col gap-4 py-0 data-[collapsed=true]:py-2 transition-all duration-300 ease-in-out ml-5 border-l border-accent">
           <nav
             ref={optionsRef}
             className="grid gap-1 px-0.5 overflow-hidden group-[[data-collapsed=true]]:h-0 transition-all duration-300 ease-in-out"
@@ -49,7 +52,7 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
               <Link
                 key={index}
                 href={submenu.href}
-                className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage(submenu) && 'bg-muted text-primary hover:text-primary')}
+                className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage(submenu, pathname) && 'bg-muted text-primary hover:text-primary')}
               >
                 {submenu.title}
               </Link>
@@ -63,10 +66,9 @@ const SidebarLink = ({ link, index, pathname, isCurrentPage, isCollapsed }) => {
 
 export function Nav({ links, isCollapsed }) {
   const pathname = usePathname();
-  const isCurrentPage = link => (link.alias && pathname.includes(link.alias)) || (pathname === '/' && link.href === '/') || (pathname !== '/' && link.href !== '/' && pathname.includes(link.href));
   return (
-    <div data-collapsed={isCollapsed} className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
-      <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+    <div data-collapsed={isCollapsed} className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2 overflow-hidden">
+      <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2 overflow-y-auto overflow-x-hidden no-scrollbar">
         {links.map((link, index) =>
           isCollapsed ? (
             <Popover key={index}>
@@ -83,7 +85,7 @@ export function Nav({ links, isCollapsed }) {
                             size: 'icon',
                           }),
                           'h-9 w-9',
-                          isCurrentPage(link) && 'bg-muted text-primary hover:text-primary'
+                          isCurrentPage(link, pathname) && 'bg-muted text-primary hover:text-primary'
                         )}
                       >
                         <link.icon className="h-4 w-4" />
@@ -99,7 +101,7 @@ export function Nav({ links, isCollapsed }) {
                             size: 'icon',
                           }),
                           'h-9 w-9',
-                          isCurrentPage(link) && 'bg-muted text-primary hover:text-primary'
+                          isCurrentPage(link, pathname) && 'bg-muted text-primary hover:text-primary'
                         )}
                       >
                         <link.icon className="h-4 w-4" />
@@ -119,7 +121,11 @@ export function Nav({ links, isCollapsed }) {
                     <nav className="grid gap-1 overflow-hidden">
                       <Link
                         href={link.href}
-                        className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start', isCurrentPage({ ...link, alias: undefined }) && 'bg-muted text-primary hover:text-primary')}
+                        className={cn(
+                          buttonVariants({ variant: 'ghost', size: 'sm' }),
+                          'justify-start',
+                          pathname === link.href && 'bg-muted text-primary hover:text-primary' && 'bg-muted text-primary hover:text-primary'
+                        )}
                       >
                         <link.icon className="mr-2 h-4 w-4" />
                         {link.title}
@@ -128,7 +134,7 @@ export function Nav({ links, isCollapsed }) {
                         <Link
                           key={index}
                           href={submenu.href}
-                          className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start text-sm', isCurrentPage(submenu) && 'bg-muted text-primary hover:text-primary')}
+                          className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'justify-start text-sm', isCurrentPage(submenu, pathname) && 'bg-muted text-primary hover:text-primary')}
                         >
                           <CircleDashedIcon className="mr-2 h-4 w-4" />
                           {submenu.title}
@@ -165,10 +171,7 @@ export function Collapse({ isCollapsed, panel }) {
         {isCollapsed ? (
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
-              <button
-                onClick={expandSidebar}
-                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'h-9 w-9', 'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white')}
-              >
+              <button onClick={expandSidebar} className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'h-9 w-9')}>
                 <SidebarOpenIcon className="h-4 w-4" />
                 <span className="sr-only">Expand</span>
               </button>

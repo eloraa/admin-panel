@@ -18,7 +18,7 @@ const CustomRow = ({ row, customState }) => {
   );
 };
 
-export function DataTable({ columns, data, placeholder, statuses = [], customState, search, disableFilter, dateFilter, disableCourierProvider }) {
+export function DataTable({ columns, data, placeholder, filterWith, statuses = [], defaultStatus, customState, search, disableFilter, dateFilter, customFilter }) {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [sorting, setSorting] = React.useState([]);
@@ -44,8 +44,18 @@ export function DataTable({ columns, data, placeholder, statuses = [], customSta
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar disableCourierProvider={disableCourierProvider} dateFilter={dateFilter} disableFilter={disableFilter} id={search} statuses={statuses} table={table} placeholder={placeholder} />
-      <div className="rounded-md border my-6">
+      <DataTableToolbar
+        filterWith={filterWith}
+        defaultStatus={defaultStatus}
+        customFilter={customFilter}
+        dateFilter={dateFilter}
+        disableFilter={disableFilter}
+        id={search}
+        statuses={statuses}
+        table={table}
+        placeholder={placeholder}
+      />
+      <div className="rounded-md border my-6 bg-background">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (

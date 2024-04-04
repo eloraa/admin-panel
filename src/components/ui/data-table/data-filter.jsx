@@ -9,15 +9,23 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { CheckIcon } from 'lucide-react';
 import { Badge } from '../badge';
 
-export function DataTableFacetedFilter({ column, title, options, className }) {
+export function DataTableFacetedFilter({ column, title, defaultValue, options, className }) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue());
+
+  React.useEffect(() => {
+    const selectedValue = new Set(column?.getFilterValue());
+    if (defaultValue && !column?.getFilterValue()?.includes(defaultValue)) {
+      selectedValue.add(defaultValue);
+      column?.setFilterValue([defaultValue]);
+    }
+  }, [column, defaultValue]);
 
   return (
     <div className={className}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <Button variant="outline" size="sm" className="h-8 border-dashed capitalize">
             <Filter className="mr-2 h-4 w-4" />
             {title}
             {selectedValues?.size > 0 && (
@@ -76,10 +84,17 @@ export function DataTableFacetedFilter({ column, title, options, className }) {
                       </div>
                       {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
                       <span>{option.label}</span>
-                      {facets?.get(option.value) && (
+                      {Array.from(facets.keys()).some(key => Array.isArray(key)) ? (
                         <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                          {facets.get(option.value)}
+                          {Array.from(facets.keys()).reduce((count, key) => {
+                            if (Array.isArray(key)) {
+                              return count + key.filter(obj => obj.title === option.value).length;
+                            }
+                            return count;
+                          }, 0)}
                         </span>
+                      ) : (
+                        facets?.get(option.value) && <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">{facets.get(option.value)}</span>
                       )}
                     </CommandItem>
                   );
