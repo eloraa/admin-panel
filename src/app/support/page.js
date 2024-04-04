@@ -1,9 +1,8 @@
 import { DataTable } from '@/components/ui/data-table/data-table';
 import { sanitizeObject } from '@/components/ui/data-table/utils';
 import { columns } from './column';
-import { FilterItem } from '@/components/shared/filterItem';
 import { Title } from '@/components/ui/title';
-import Layout, { statuses } from './_layout';
+import Layout, { labels, statuses } from './_layout';
 
 const data = [
   {
@@ -214,14 +213,7 @@ export default function Kam() {
             {
               label: 'Labels',
               value: 'labels',
-              options: [
-                { label: 'Issue', value: 'Issue' },
-                { label: 'Performance', value: 'Performance' },
-                { label: 'Login', value: 'Login' },
-                { label: 'Technical', value: 'Technical' },
-                { label: 'Request', value: 'Request' },
-                { label: 'Feature', value: 'Feature' },
-              ],
+              options: labels,
             },
           ]}
           dateFilter

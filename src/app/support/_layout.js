@@ -17,6 +17,24 @@ export const statuses = [
   { label: 'Closed', value: 'Closed' },
 ];
 
+export const labels = [
+  { label: 'Bug', value: 'Bug', color: '#FF0000' },
+  { label: 'In Progress', value: 'In Progress', color: '#03A9F4' },
+  { label: 'Critical', value: 'Critical', color: 'rgb(227 57 3)' },
+  { label: 'Error', value: 'Error', color: 'rgb(225 15 0)' },
+  { label: 'Warning', value: 'Warning', color: '#9e9d24' },
+  { label: 'Billing', value: 'Billing', color: '#0000FF' },
+  { label: 'Query', value: 'Query', color: '#008000' },
+  { label: 'Outage', value: 'Outage', color: '#FF0000' },
+  { label: 'Service', value: 'Service', color: '#ff8300' },
+  { label: 'Password', value: 'Password', color: '#0000FF' },
+  { label: 'Reset', value: 'Reset', color: '#008000' },
+  { label: 'Feature', value: 'Feature', color: '#ff8300' },
+  { label: 'Request', value: 'Request', color: '#FFA500' },
+  { label: 'Technical', value: 'Technical', color: '#0000FF' },
+  { label: 'Login', value: 'Login', color: '#008000' },
+];
+
 export default function Layout({ children, params }) {
   const defaultStatus = statuses.find(item => item.value === params?.status)?.value;
   if (params && !defaultStatus) return <NotFound />;

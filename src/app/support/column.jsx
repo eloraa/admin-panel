@@ -14,6 +14,9 @@ import { ArrowUp } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { ArrowDown } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CircleCheckIcon } from 'lucide-react';
+import { XIcon } from 'lucide-react';
+import { Action } from './action';
 
 export const columns = [
   {
@@ -152,7 +155,21 @@ export const columns = [
     accessorKey: 'status',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
-      return <ChangeStatus statuses={statuses} status={row.getValue('status')} />;
+      const status = row.getValue('status');
+      if (status === 'Closed' || status === 'Solved')
+        return status === 'Solved' ? (
+          <div className="flex items-center gap-1 px-3 border py-2 rounded-md bg-primary/10 dark:bg-primary/5 text-primary">
+            <CircleCheckIcon className="w-4 h-4" />
+            {status}
+          </div>
+        ) : (
+          <div className="flex items-center gap-1 px-4 border py-2 rounded-md bg-red-500/10 dark:bg-red-500/5 text-destructive dark:text-red-500">
+            <XIcon className="w-4 h-4" />
+            {status}
+          </div>
+        );
+      const filteredStatuses = statuses.slice(statuses.findIndex(s => s.value === status));
+      return <ChangeStatus statuses={filteredStatuses} status={status} />;
     },
 
     filterFn: (row, id, value) => {
@@ -163,7 +180,11 @@ export const columns = [
     accessorKey: 'action',
     header: ({ column }) => <DataTableColumnHeader className="text-right justify-end" column={column} title="Action" />,
     cell: ({ row }) => {
-      return <div className="flex items-center justify-end gap-1 font-semibold text-primary"></div>;
+      return (
+        <div className="flex items-center justify-end">
+          <Action data={row.original} />
+        </div>
+      );
     },
     enableSorting: false,
   },
