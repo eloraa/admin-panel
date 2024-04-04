@@ -28,7 +28,7 @@ import { BriefcaseIcon } from 'lucide-react';
 import { GlobeIcon } from 'lucide-react';
 import { TruckIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { isCurrentPage } from '@/lib';
+import { ApplyPrototypes, isCurrentPage } from '@/lib';
 import { Search } from './search';
 
 export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, defaultShowOptions = true, children }) => {
@@ -281,6 +281,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
     };
 
     document.addEventListener('keyup', hidenav);
+    ApplyPrototypes();
 
     return () => {
       document.removeEventListener('keyup', hidenav);
@@ -340,7 +341,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
             document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(false)}; path=/`;
           }}
           className={cn(
-            'flex flex-col max-w-[272px] max-md:absolute max-md:z-50 max-md:top-0 max-md:left-0 max-md:h-full max-md:border-r max-md:bg-background/90 max-md:backdrop-blur transition-transform ease-in-out duration-300',
+            'flex flex-col max-w-[272px] max-md:fixed overflow-hidden max-md:z-50 max-md:top-0 max-md:left-0 max-md:h-full max-md:border-r max-md:bg-background/90 max-md:backdrop-blur transition-transform ease-in-out duration-300',
             isCollapsed && 'min-w-[50px] max-w-[50px] transition-all duration-300 ease-in-out',
             navOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-full'
           )}
@@ -383,7 +384,7 @@ export const Sidebar = ({ defaultLayout = [25, 75], defaultCollapsed = false, de
               </PopoverTrigger>
               <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                 {isCollapsed && (
-                  <PopoverContent className="mt-2 px-0 pb-2" side="right">
+                  <PopoverContent className="mt-2 px-0 pb-2 bg-popover/90" side="right">
                     <div className="min-w-0 px-3">
                       <h1 className="text-sm font-medium">Elora</h1>
                       <p className="text-xs text-muted-foreground truncate">wandering-cloud</p>

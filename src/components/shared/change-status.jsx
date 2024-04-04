@@ -7,6 +7,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
+import { ChevronsUpDownIcon } from 'lucide-react';
 
 export const ChangeStatus = ({ className, status, statuses, label, onChange, inputs, applyInputs, onSubmit, buttonOnly, willChangeTo }) => {
   const [open, setOpen] = React.useState(false);
@@ -17,9 +18,9 @@ export const ChangeStatus = ({ className, status, statuses, label, onChange, inp
   if (buttonOnly && !willChangeTo) throw new Error('buttonOnly requires willChangeTo to be set');
 
   return (
-    <div className={cn('flex space-x-4', className)}>
+    <div className="flex space-x-4">
       {buttonOnly && (
-        <Button variant="outline" size="sm" onClick={() => setModal(true)}>
+        <Button variant="outline" size="sm" onClick={() => setModal(true)} className={cn('w-[150px] justify-between', className)}>
           {label || 'Change status'}
           <ArrowRight className="w-4 h-4" />
         </Button>
@@ -27,8 +28,9 @@ export const ChangeStatus = ({ className, status, statuses, label, onChange, inp
       {!buttonOnly && (
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="w-[150px] justify-start">
+            <Button variant="outline" size="sm" className={cn('w-[150px] justify-between', className)}>
               {selectedStatus ? selectedStatus.label : label || 'Change status'}
+              <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-0" side="right" align="start">

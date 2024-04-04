@@ -1,9 +1,6 @@
-import { DataTable } from '@/components/ui/data-table/data-table';
-import { sanitizeObject } from '@/components/ui/data-table/utils';
-import { columns } from './column';
-import { Title } from '@/components/ui/title';
-import Layout, { labels, statuses } from './_layout';
-import { AddTicket } from './add-ticket';
+import NotFound from '@/app/not-found';
+import { ChatToolbar } from '@/components/shared/chat-toolbar';
+import { Client } from './client';
 
 const data = [
   {
@@ -193,39 +190,41 @@ const data = [
   },
 ];
 
-export default function Page() {
+const statuses = [
+  { label: 'Pending', value: 'pending' },
+  { label: 'Open', value: 'open' },
+  { label: 'Processing', value: 'processing' },
+  { label: 'Solved', value: 'solved' },
+  { label: 'Closed', value: 'closed' },
+];
+
+const labels = [
+  { label: 'Bug', value: 'Bug', color: '#FF0000' },
+  { label: 'In Progress', value: 'In Progress', color: '#03A9F4' },
+  { label: 'Critical', value: 'Critical', color: 'rgb(227 57 3)' },
+  { label: 'Error', value: 'Error', color: 'rgb(225 15 0)' },
+  { label: 'Warning', value: 'Warning', color: '#9e9d24' },
+  { label: 'Billing', value: 'Billing', color: '#0000FF' },
+  { label: 'Query', value: 'Query', color: '#008000' },
+  { label: 'Outage', value: 'Outage', color: '#FF0000' },
+  { label: 'Service', value: 'Service', color: '#ff8300' },
+  { label: 'Password', value: 'Password', color: '#0000FF' },
+  { label: 'Reset', value: 'Reset', color: '#008000' },
+  { label: 'Feature', value: 'Feature', color: '#ff8300' },
+  { label: 'Request', value: 'Request', color: '#FFA500' },
+  { label: 'Technical', value: 'Technical', color: '#0000FF' },
+  { label: 'Login', value: 'Login', color: '#008000' },
+];
+
+export default function Page({ params: { id } }) {
+  console.log(id);
+  const ticket = data.find(ticket => String(ticket.sl) === String(id));
+  console.log(ticket);
+  if (!ticket) return <NotFound />;
   return (
-    <Layout>
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <Title>Ticket List</Title>
-          <AddTicket />
-        </div>
-        <DataTable
-          search="subjectForTicket"
-          statuses={statuses}
-          filterWith={[
-            {
-              label: 'Priority',
-              value: 'priority',
-              options: [
-                { label: 'High', value: 'High' },
-                { label: 'Medium', value: 'Medium' },
-                { label: 'Low', value: 'Low' },
-              ],
-            },
-            {
-              label: 'Labels',
-              value: 'labels',
-              options: labels,
-            },
-          ]}
-          dateFilter
-          placeholder="Filter tickets"
-          data={sanitizeObject(data)}
-          columns={columns}
-        ></DataTable>
-      </section>
-    </Layout>
+    <section className="flex flex-col overflow-hidden h-full">
+      <ChatToolbar data={ticket} labels={labels} statuses={statuses.slice(statuses.findIndex(s => s.value === ticket.status))} className="layer pb-6" />
+      <Client data={ticket} />
+    </section>
   );
 }

@@ -151,3 +151,45 @@ export const getShade = color => {
 
   return luminance > 0.5 ? true : false;
 };
+
+/**
+ * Converts a color name to its RGBA equivalent.
+ *
+ * @param {string} color - The name of the color to convert.
+ * @return {string|null} The RGBA representation of the color, or null if conversion failed.
+ */
+export function toRGB(color) {
+  // Create a temporary element to compute styles
+  const tempElement = document.createElement('div');
+  tempElement.style.color = color;
+
+  document.body.appendChild(tempElement);
+
+  const computedColor = getComputedStyle(tempElement).color;
+
+  document.body.removeChild(tempElement);
+
+  const rgbaMatch = computedColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+
+  if (rgbaMatch) {
+    const [, r, g, b, a = '1'] = rgbaMatch;
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  }
+
+  return null;
+}
+
+/**
+ * ApplyPrototypes function to extend String prototype with advanceTrim method.
+ *
+ */
+export const ApplyPrototypes = () => {
+  /**
+   * A function that trims white spaces from the beginning and end of a string.
+   *
+   * @return {string} The trimmed string.
+   */
+  String.prototype.advanceTrim = function () {
+    return this.replace(/^\s+|\s+$/g, '');
+  };
+};

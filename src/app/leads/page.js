@@ -509,7 +509,7 @@ const data = [
   },
 ];
 
-export default function Kam() {
+export default function Page() {
   return (
     <Layout>
       <section>

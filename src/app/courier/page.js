@@ -1,7 +1,7 @@
 import { Title } from '@/components/ui/title';
 import { Provider } from './provider';
 
-export default function Kam() {
+export default function Page() {
   return (
     <div className="space-y-8 layer">
       <section>

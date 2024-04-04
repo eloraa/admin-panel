@@ -136,7 +136,7 @@ const data = [
   },
 ];
 
-export default function Kam() {
+export default function Page() {
   return (
     <section>
       <div className="mt-4">

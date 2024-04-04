@@ -56,7 +56,7 @@ export const HeaderBreadcrumb = ({ setNavOpen, accounts }) => {
             {visibleItems.slice(0, -1).map((segment, index) => (
               <React.Fragment key={index}>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${segments.slice(0, segments.length - 3 + index + 1).join('/')}`} className="capitalize">
+                  <BreadcrumbLink href={`/${segments.slice(0, segments.length - 3 + index + 2).join('/')}`} className="capitalize">
                     {segment}
                   </BreadcrumbLink>
                 </BreadcrumbItem>

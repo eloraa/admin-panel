@@ -5,7 +5,7 @@ import { LightbulbIcon } from 'lucide-react';
 import { CircleDotDashedIcon } from 'lucide-react';
 import { CircleCheckIcon } from 'lucide-react';
 
-export default function Kam() {
+export default function Page() {
   return (
     <div className="space-y-8 layer">
       <section>

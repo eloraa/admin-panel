@@ -10,11 +10,11 @@ import { FilterItem } from '@/components/shared/filterItem';
 import NotFound from '../not-found';
 
 export const statuses = [
-  { label: 'Pending', value: 'Pending' },
-  { label: 'Open', value: 'Open' },
-  { label: 'Processing', value: 'Processing' },
-  { label: 'Solved', value: 'Solved' },
-  { label: 'Closed', value: 'Closed' },
+  { label: 'Pending', value: 'pending' },
+  { label: 'Open', value: 'open' },
+  { label: 'Processing', value: 'processing' },
+  { label: 'Solved', value: 'solved' },
+  { label: 'Closed', value: 'closed' },
 ];
 
 export const labels = [
@@ -36,7 +36,7 @@ export const labels = [
 ];
 
 export default function Layout({ children, params }) {
-  const defaultStatus = statuses.find(item => item.value === params?.status)?.value;
+  const defaultStatus = statuses.find(item => item.value.toLowerCase() === params?.status)?.value;
   if (params && !defaultStatus) return <NotFound />;
   return (
     <div className="space-y-8 layer">

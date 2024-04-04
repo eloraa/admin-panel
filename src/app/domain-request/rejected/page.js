@@ -94,7 +94,7 @@ export const statuses = [
   },
 ];
 
-export default function Kam() {
+export default function Page() {
   return (
     <section>
       <Title className="max-md:text-center">Domain Request List</Title>

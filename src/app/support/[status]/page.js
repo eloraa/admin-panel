@@ -1,237 +1,230 @@
 import { DataTable } from '@/components/ui/data-table/data-table';
 import { sanitizeObject } from '@/components/ui/data-table/utils';
-import { Title } from '@/components/ui/title';
-import { FilterItem } from '@/components/shared/filterItem';
 import { columns } from '../column';
+import { Title } from '@/components/ui/title';
 import NotFound from '@/app/not-found';
-import { statuses } from '../_layout';
+import { AddTicket } from '../add-ticket';
+import { labels, statuses } from '../_layout';
 
 const data = [
   {
     sl: 1,
-    name: 'John Doe',
-    phoneNumber: '+1 (123) 456-7890',
-    emailAddress: 'johndoe@example.com',
-    employeeId: 'E001',
-    joiningDate: '2022-01-05',
-    role: 'Developer',
-    activated: true,
+    clientName: 'John Doe',
+    ticketNo: 'TCKT-001',
+    subjectForTicket: 'Issue with login',
+    submissionTime: '2024-03-26T09:30:00',
+    assignee: 'Alice',
+    timeline: [{ label: 'Pending', value: '2024-03-26T09:30:00' }],
+    status: 'pending',
+    labels: [
+      { title: 'Bug', color: '#FF0000' },
+      { title: 'In Progress', color: '#03A9F4' },
+      { title: 'Critical', color: 'rgb(227 57 3)' },
+      { title: 'Error', color: 'rgb(225 15 0)' },
+      { title: 'Warning', color: '#9e9d24' },
+    ],
+    priority: 'High',
   },
   {
     sl: 2,
-    name: 'Jane Smith',
-    phoneNumber: '+1 (234) 567-8901',
-    emailAddress: 'janesmith@example.com',
-    employeeId: 'E002',
-    joiningDate: '2021-03-15',
-    role: 'Manager',
-    activated: true,
+    clientName: 'Jane Smith',
+    ticketNo: 'TCKT-002',
+    subjectForTicket: 'Billing issue',
+    submissionTime: '2024-03-26T10:45:00',
+    assignee: 'Bob',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T10:45:00' },
+      { label: 'Open', value: '2024-03-26T11:00:00' },
+    ],
+    status: 'open',
+    labels: [{ title: 'Billing', color: '#0000FF' }],
+    priority: 'Medium',
   },
   {
     sl: 3,
-    name: 'Emily Johnson',
-    phoneNumber: '+1 (345) 678-9012',
-    emailAddress: 'emilyjohnson@example.com',
-    employeeId: 'E003',
-    joiningDate: '2020-07-20',
-    role: 'Designer',
-    activated: false,
+    clientName: 'Emily Johnson',
+    ticketNo: 'TCKT-003',
+    subjectForTicket: 'Product query',
+    submissionTime: '2024-03-26T11:20:00',
+    assignee: 'Charlie',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T11:20:00' },
+      { label: 'Open', value: '2024-03-26T11:35:00' },
+      { label: 'Processing', value: '2024-03-26T12:00:00' },
+    ],
+    status: 'processing',
+    labels: [{ title: 'Query', color: '#008000' }],
+    priority: 'Low',
   },
   {
     sl: 4,
-    name: 'Michael Williams',
-    phoneNumber: '+1 (456) 789-0123',
-    emailAddress: 'michaelwilliams@example.com',
-    employeeId: 'E004',
-    joiningDate: '2023-02-10',
-    role: 'Engineer',
-    activated: true,
+    clientName: 'Michael Williams',
+    ticketNo: 'TCKT-004',
+    subjectForTicket: 'Service outage',
+    submissionTime: '2024-03-26T12:00:00',
+    assignee: 'David',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T12:00:00' },
+      { label: 'Open', value: '2024-03-26T12:30:00' },
+      { label: 'Processing', value: '2024-03-26T13:00:00' },
+      { label: 'Solved', value: '2024-03-26T14:00:00' },
+    ],
+    status: 'solved',
+    labels: [
+      { title: 'Outage', color: '#FF0000' },
+      { title: 'Service', color: '#ff8300' },
+    ],
+    priority: 'High',
   },
   {
     sl: 5,
-    name: 'Emma Brown',
-    phoneNumber: '+1 (567) 890-1234',
-    emailAddress: 'emmabrown@example.com',
-    employeeId: 'E005',
-    joiningDate: '2022-11-30',
-    role: 'Analyst',
-    activated: false,
+    clientName: 'Emma Brown',
+    ticketNo: 'TCKT-005',
+    subjectForTicket: 'Password reset',
+    submissionTime: '2024-03-26T13:15:00',
+    assignee: 'Ella',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T13:15:00' },
+      { label: 'Open', value: '2024-03-26T13:30:00' },
+      { label: 'Processing', value: '2024-03-26T14:00:00' },
+      { label: 'Closed', value: '2024-03-26T15:00:00' },
+    ],
+    status: 'closed',
+    labels: [
+      { title: 'Password', color: '#0000FF' },
+      { title: 'Reset', color: '#008000' },
+    ],
+    priority: 'Medium',
   },
   {
     sl: 6,
-    name: 'William Jones',
-    phoneNumber: '+1 (678) 901-2345',
-    emailAddress: 'williamjones@example.com',
-    employeeId: 'E006',
-    joiningDate: '2021-05-25',
-    role: 'Developer',
-    activated: true,
+    clientName: 'William Jones',
+    ticketNo: 'TCKT-006',
+    subjectForTicket: 'Feature request',
+    submissionTime: '2024-03-26T14:30:00',
+    assignee: 'Fred',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T14:30:00' },
+      { label: 'Open', value: '2024-03-26T14:45:00' },
+      { label: 'Processing', value: '2024-03-26T15:15:00' },
+      { label: 'Solved', value: '2024-03-26T16:00:00' },
+    ],
+    status: 'solved',
+    labels: [
+      { title: 'Feature', color: '#ff8300' },
+      { title: 'Request', color: '#FFA500' },
+    ],
+    priority: 'Low',
   },
   {
     sl: 7,
-    name: 'Olivia Davis',
-    phoneNumber: '+1 (789) 012-3456',
-    emailAddress: 'oliviadavis@example.com',
-    employeeId: 'E007',
-    joiningDate: '2020-09-18',
-    role: 'Manager',
-    activated: false,
+    clientName: 'Olivia Davis',
+    ticketNo: 'TCKT-007',
+    subjectForTicket: 'Performance issue',
+    submissionTime: '2024-03-26T15:45:00',
+    assignee: 'Grace',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T15:45:00' },
+      { label: 'Open', value: '2024-03-26T16:00:00' },
+      { label: 'Processing', value: '2024-03-26T16:30:00' },
+      { label: 'Closed', value: '2024-03-26T17:30:00' },
+    ],
+    status: 'closed',
+    labels: [
+      { title: 'Performance', color: '#FF0000' },
+      { title: 'Issue', color: '#ff8300' },
+    ],
+    priority: 'High',
   },
   {
     sl: 8,
-    name: 'James Miller',
-    phoneNumber: '+1 (890) 123-4567',
-    emailAddress: 'jamesmiller@example.com',
-    employeeId: 'E008',
-    joiningDate: '2023-04-03',
-    role: 'Designer',
-    activated: true,
+    clientName: 'Sophia Wilson',
+    ticketNo: 'TCKT-008',
+    subjectForTicket: 'Technical error',
+    submissionTime: '2024-03-26T16:30:00',
+    assignee: 'Henry',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T16:30:00' },
+      { label: 'Open', value: '2024-03-26T16:45:00' },
+    ],
+    status: 'open',
+    labels: [
+      { title: 'Technical', color: '#0000FF' },
+      { title: 'Error', color: '#FF0000' },
+    ],
+    priority: 'Medium',
   },
   {
     sl: 9,
-    name: 'Sophia Wilson',
-    phoneNumber: '+1 (901) 234-5678',
-    emailAddress: 'sophiawilson@example.com',
-    employeeId: 'E009',
-    joiningDate: '2022-08-15',
-    role: 'Engineer',
-    activated: true,
+    clientName: 'Daniel Taylor',
+    ticketNo: 'TCKT-009',
+    subjectForTicket: 'Login issue',
+    submissionTime: '2024-03-26T17:15:00',
+    assignee: 'Isabella',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T17:15:00' },
+      { label: 'Open', value: '2024-03-26T17:30:00' },
+    ],
+    status: 'open',
+    labels: [
+      { title: 'Login', color: '#008000' },
+      { title: 'Issue', color: '#ff8300' },
+    ],
+    priority: 'Low',
   },
   {
     sl: 10,
-    name: 'Liam Taylor',
-    phoneNumber: '+1 (012) 345-6789',
-    emailAddress: 'liamtaylor@example.com',
-    employeeId: 'E010',
-    joiningDate: '2021-01-01',
-    role: 'Analyst',
-    activated: false,
-  },
-  {
-    sl: 11,
-    name: 'Ava Anderson',
-    phoneNumber: '+1 (123) 456-7890',
-    emailAddress: 'avaanderson@example.com',
-    employeeId: 'E011',
-    joiningDate: '2020-12-10',
-    role: 'Developer',
-    activated: true,
-  },
-  {
-    sl: 12,
-    name: 'Noah Thomas',
-    phoneNumber: '+1 (234) 567-8901',
-    emailAddress: 'noahthomas@example.com',
-    employeeId: 'E012',
-    joiningDate: '2023-03-05',
-    role: 'Manager',
-    activated: true,
-  },
-  {
-    sl: 13,
-    name: 'Isabella White',
-    phoneNumber: '+1 (345) 678-9012',
-    emailAddress: 'isabellawhite@example.com',
-    employeeId: 'E013',
-    joiningDate: '2022-04-20',
-    role: 'Designer',
-    activated: false,
-  },
-  {
-    sl: 14,
-    name: 'Ethan Clark',
-    phoneNumber: '+1 (456) 789-0123',
-    emailAddress: 'ethanclark@example.com',
-    employeeId: 'E014',
-    joiningDate: '2021-06-15',
-    role: 'Engineer',
-    activated: true,
-  },
-  {
-    sl: 15,
-    name: 'Mia Hall',
-    phoneNumber: '+1 (567) 890-1234',
-    emailAddress: 'miahall@example.com',
-    employeeId: 'E015',
-    joiningDate: '2020-10-30',
-    role: 'Analyst',
-    activated: false,
-  },
-  {
-    sl: 16,
-    name: 'Lucas Adams',
-    phoneNumber: '+1 (678) 901-2345',
-    emailAddress: 'lucasadams@example.com',
-    employeeId: 'E016',
-    joiningDate: '2023-01-25',
-    role: 'Developer',
-    activated: true,
-  },
-  {
-    sl: 17,
-    name: 'Ella Harris',
-    phoneNumber: '+1 (789) 012-3456',
-    emailAddress: 'ellaharris@example.com',
-    employeeId: 'E017',
-    joiningDate: '2022-07-18',
-    role: 'Manager',
-    activated: false,
-  },
-  {
-    sl: 18,
-    name: 'Benjamin Scott',
-    phoneNumber: '+1 (890) 123-4567',
-    emailAddress: 'benjaminscott@example.com',
-    employeeId: 'E018',
-    joiningDate: '2021-09-03',
-    role: 'Designer',
-    activated: true,
-  },
-  {
-    sl: 19,
-    name: 'Chloe Green',
-    phoneNumber: '+1 (901) 234-5678',
-    emailAddress: 'chloegreen@example.com',
-    employeeId: 'E019',
-    joiningDate: '2020-11-15',
-    role: 'Engineer',
-    activated: true,
-  },
-  {
-    sl: 20,
-    name: 'Henry King',
-    phoneNumber: '+1 (012) 345-6789',
-    emailAddress: 'henryking@example.com',
-    employeeId: 'E020',
-    joiningDate: '2023-05-01',
-    role: 'Analyst',
-    activated: false,
+    clientName: 'Liam Anderson',
+    ticketNo: 'TCKT-010',
+    subjectForTicket: 'Feature request',
+    submissionTime: '2024-03-26T18:00:00',
+    assignee: 'Jacob',
+    timeline: [
+      { label: 'Pending', value: '2024-03-26T18:00:00' },
+      { label: 'Open', value: '2024-03-26T18:15:00' },
+      { label: 'Processing', value: '2024-03-26T18:45:00' },
+      { label: 'Closed', value: '2024-03-26T19:45:00' },
+    ],
+    status: 'closed',
+    labels: [
+      { title: 'Feature', color: '#ff8300' },
+      { title: 'Request', color: '#FFA500' },
+    ],
+    priority: 'High',
   },
 ];
 
-export default function Kam({ params }) {
-  const defaultStatus = statuses.find(item => item.value === params.status)?.value;
+export default function Page({ params: { status } }) {
+  const defaultStatus = statuses.find(item => item.value === status)?.value;
   if (!defaultStatus) return <NotFound />;
   return (
     <section>
-      <Title className="max-md:text-center mb-4">Team Member List</Title>
+      <div className="mb-4 flex items-center justify-between">
+        <Title>Ticket List</Title>
+        <AddTicket />
+      </div>
       <DataTable
-        search="emailAddress"
-        filterWith="activated"
-        disableFilter
+        search="subjectForTicket"
         statuses={statuses}
-        defaultStatus={defaultStatus}
-        customFilter={[
+        defaultStatus={status}
+        filterWith={[
           {
-            label: 'Joining Date',
-            filter: FilterItem,
-            props: {
-              overrideLabel: true,
-              checkbox: true,
-            },
+            label: 'Priority',
+            value: 'priority',
+            options: [
+              { label: 'High', value: 'High' },
+              { label: 'Medium', value: 'Medium' },
+              { label: 'Low', value: 'Low' },
+            ],
+          },
+          {
+            label: 'Labels',
+            value: 'labels',
+            options: labels,
           },
         ]}
-        placeholder="Filter by Email"
+        dateFilter
+        placeholder="Filter tickets"
         data={sanitizeObject(data)}
         columns={columns}
       ></DataTable>

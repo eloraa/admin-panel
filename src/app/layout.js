@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Anek_Bangla, Inter } from 'next/font/google';
+import { Anek_Bangla, Inter, Noto_Color_Emoji } from 'next/font/google';
 import './globals.css';
 import { Sidebar } from '@/components/shared/sidebar';
 import { cookies } from 'next/headers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const anek_bangla = Anek_Bangla({ subsets: ['bengali'] });
+const emoji = Noto_Color_Emoji({ subsets: ['emoji'], weight: '400', variable: '--emoji-font' });
 
 export const metadata = {
   title: 'Dashboard',
@@ -22,7 +23,7 @@ export default function RootLayout({ children }) {
   const defaultShowOptions = optionCollapsed ? JSON.parse(optionCollapsed.value) : undefined;
 
   return (
-    <html lang="en" className={theme?.value} style={{ colorScheme: theme?.value === 'dark' ? 'dark' : 'light' }}>
+    <html lang="en" className={`${theme?.value} ${emoji.variable} ${inter.variable}`} style={{ colorScheme: theme?.value === 'dark' ? 'dark' : 'light' }}>
       <head>
         <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>

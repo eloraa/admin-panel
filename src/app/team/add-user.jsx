@@ -56,7 +56,7 @@ export const AddUser = ({ defaultValue, open, setOpen, ...props }) => {
           </Button>
         </DialogTrigger>
       )}
-      <DialogContent className="items-start max-h-screen overflow-y-auto" onPointerDownOutside={e => e.preventDefault()}>
+      <DialogContent className="items-start max-h-screen-compatibility overflow-y-auto" onPointerDownOutside={e => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>{defaultValue ? 'Update' : 'Create'} User</DialogTitle>
           <DialogDescription>
@@ -99,7 +99,7 @@ export const AddUser = ({ defaultValue, open, setOpen, ...props }) => {
                 <SelectTrigger>
                   <SelectValue placeholder={selected || 'Select a Role'} />
                 </SelectTrigger>
-                <SelectContent className="custom-p-0 custom-w-full">
+                <SelectContent className="p-0 w-full">
                   <Command>
                     <CommandInput placeholder="Search roles" />
                     <CommandList>

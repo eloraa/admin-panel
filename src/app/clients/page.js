@@ -197,7 +197,7 @@ const statuses = [
   },
 ];
 
-export default function Kam() {
+export default function Page() {
   return (
     <div className="space-y-8 layer">
       <section>

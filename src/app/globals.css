@@ -49,6 +49,10 @@
     --ring: 238.73 83.53% 66.67%;
     --invert: 0 0% 100%;
   }
+
+  em-emoji-picker {
+    --rgb-accent: 77, 77, 255;
+  }
 }
 @layer base {
   html,
@@ -137,8 +141,15 @@
     @apply rounded;
   }
 
-  .max-h-screen-compatiblity {
+  .max-h-screen-compatibility {
     max-height: 100vh;
     max-height: 100svh;
+  }
+  em-emoji-picker {
+    width: 100%;
+    min-width: 250px;
+  }
+  em-emoji-picker * {
+    font-family: var(--emoji-font), var(--font-inter) !important;
   }
 }

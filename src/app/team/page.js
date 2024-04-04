@@ -219,7 +219,7 @@ const statuses = [
   },
 ];
 
-export default function Kam() {
+export default function Page() {
   return (
     <section>
       <div className="flex items-center justify-between mb-4">

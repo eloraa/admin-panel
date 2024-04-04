@@ -29,7 +29,7 @@ import { TimerOffIcon } from 'lucide-react';
 import { ShieldCheckIcon } from 'lucide-react';
 import { PercentIcon, BriefcaseBusinessIcon } from 'lucide-react';
 
-export default function Kam() {
+export default function Page() {
   return (
     <div className="space-y-8 layer">
       <section>

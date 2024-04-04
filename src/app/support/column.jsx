@@ -156,8 +156,8 @@ export const columns = [
     header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
       const status = row.getValue('status');
-      if (status === 'Closed' || status === 'Solved')
-        return status === 'Solved' ? (
+      if (status.toLowerCase() === 'closed' || status.toLowerCase() === 'solved')
+        return status.toLowerCase() === 'solved' ? (
           <div className="flex items-center gap-1 px-3 border py-2 rounded-md bg-primary/10 dark:bg-primary/5 text-primary">
             <CircleCheckIcon className="w-4 h-4" />
             {status}
@@ -168,8 +168,7 @@ export const columns = [
             {status}
           </div>
         );
-      const filteredStatuses = statuses.slice(statuses.findIndex(s => s.value === status));
-      return <ChangeStatus statuses={filteredStatuses} status={status} />;
+      return <ChangeStatus statuses={statuses.slice(statuses.findIndex(s => s.value === status))} status={status} />;
     },
 
     filterFn: (row, id, value) => {
