@@ -143,7 +143,7 @@ export const Client = ({ data }) => {
       <div className="overflow-y-auto overflow-x-hidden h-full max-h-screen-compatibility w-full layer">
         <Chats chats={chatsState} />
       </div>
-      <ChatBottombar chats={chats} sendMessage={setChatsState} isMobile={isMobile} data={data} className="pb-2" />
+      <ChatBottombar chats={chats} sendMessage={setChatsState} isMobile={isMobile} data={data} className="pb-2 layer" />
     </>
   );
 };
